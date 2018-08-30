@@ -26,8 +26,8 @@ class USDAModule extends EventEmitter{
 		var URL = 'https://api.nal.usda.gov/ndb/search/?format=json&q='+descr+'&sort=r&max='+length+'&offset=0&api_key=lZIqzPiEXSImPbcdpu5tanygbkEIXWc7XHIDdQxO'; 
 		request(URL, function(error,response,body){
 			var json = JSON.parse(body);
-			var ndbno = String(json.list.item[0].ndbno);
-			console.log(json.list.item[0])
+			var ndbno = String(json.list.item);
+			console.log(json.list.item)
 			eventEm.emit('ndbno',ndbno);
 		});	
 	};
