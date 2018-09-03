@@ -16,7 +16,7 @@ class USDAModule extends EventEmitter{
 		request(URL, function(error,response,body){
 			var json = JSON.parse(body);
 			console.log(json.report.food.nutrients);
-			eventEm.emit('result',json.report.food.nutrients);
+			self.emit('result',json.report.food.nutrients);
 		});
 		
 	}	
@@ -28,7 +28,7 @@ class USDAModule extends EventEmitter{
 			var json = JSON.parse(body);
 			var ndbno = String(json.list.item);
 			console.log(json.list.item)
-			eventEm.emit('ndbno',ndbno);
+			self.emit('ndbno',ndbno);
 		});	
 	};
 	
