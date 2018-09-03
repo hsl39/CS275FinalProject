@@ -27,7 +27,7 @@ class USDAModule extends EventEmitter{
 		var self = this;
 		request(URL, function(error,response,body){
 			var json = JSON.parse(body);
-			var ndbno = String(json.list.item);
+			var ndbno = json.list.item;
 			console.log(json.list.item)
 			self.emit('ndbno',ndbno);
 		});	
