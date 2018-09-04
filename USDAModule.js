@@ -15,8 +15,8 @@ class USDAModule extends EventEmitter{
 		
 		request(URL, function(error,response,body){
 			var json = JSON.parse(body);
-			console.log(json.report.food.nutrients);
-			self.emit('result',json.report.food.nutrients);
+			console.log(json);
+			self.emit('result',json.report.food);
 		});
 		
 	}	
