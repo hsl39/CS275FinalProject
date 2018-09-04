@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Trutrition: A CS 275 Project </title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Permanent Marker' rel='stylesheet'>
-
-<style type="text/css">
-
-body
-{
-    font-family: 'Permanent Marker';font-size: 22px;
-}
-
-.bg
-{
-	width: 100%
-	z-index: 0;
-}
-</style>
-
-<script>
 
 function createUser(){
 	var uId = document.getElementById('user').value;
@@ -85,20 +59,3 @@ function createUser(){
 		
 	}
 }
-</script>
-
-</head>
-
-
-<body>
-
-<p>Usernames are limited to 10 characters</p>
-<input type="text" id="user" placeholder="UserName"><br>
-<button onclick="createUser();"> Create User </button>
-
-<div id='output'></div>
-
-
-
-</body>
-</html>
