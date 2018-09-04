@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Insert Diary Info </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Permanent Marker' rel='stylesheet'>
+
+	<!-- Javascript -->
+	<script>
+  function display_diary() {
+      var inputnum = $("#inputnum").val();
+      //to check if the value is not empty
+      if (inputnum == '') {
+          $("#output").html("Gotta store some data");
+      } else {
+          // a line of code which takes value from the input boxes in insertdiaryinfo
+          //defines URL
+          var URL = "http://localhost:8080/";
+          URL += opt + "?n=" + inputnum;
+          // ajax to send Get req and receive data
+          $.ajax({
+              type: "GET",
+              url: URL,
+              data: {
+                  'num': inputnum
+              },
+              dataType: "html",
+              success: function(msg) {
+                  $("#output").html(msg);
+              },
+              //shows error when server is unavailable
+              error: function(xhr, ajaxOptions, thrownError) {
+                  $("#output").html("Error fetching " + URL);
+              }
+          });
+      }
+  }
+
+  </script>
+
+	<!-- CSS -->
+    <style>
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            margin-bottom: 80px;
+            font-family: 'Permanent Marker';font-size: 20px;
+        }
+        span {
+            display:table;
+            margin:0 auto;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background-color: #3CBC8D;
+        }
+
+        .container {
+            width: auto;
+            max-width: 680px;
+            padding: 0 15px;
+        }
+
+
+        input[type=text] {
+      /* width: 50%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      /* border: 1px solid #555; */
+      outline: none; */
+      }
+
+    input[type=text]:focus {
+      background-color: lightblue;
+    }
+        input[type=time]{
+          /* width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          /* border: 1px solid #555; */ */
+          outline: none;
+        }
+
+        input[type=text]:focus {
+          background-color: lightblue;
+        }
+
+
+    </style>
+</head>
+
+<body>
+  <div data-role="panel" id="myPanel">
+  	<a onclick ="disMenu()" href="#"> Menu </a> <br>
+  	<a onclick="disCalc()" href="#"> Food Lookup </a> <br>
+  	<a onclick="disWeather()" href="#"> Food Diary </a> <br>
+  </div>
+  <div data-role="header" data-position="fixed">
+  	<a href="#myPanel">Menu</a>
+  	<h1>Trutrition - Menu</h1>
+  </div>
+	<main role="main" class="container">
+        <h1 class="mt-5">Diary</h1>
+
+<form>
+    <a onclick="display_diary" href="#"> display data which is in the diary </a>
+    <br>
+    <p> Welcome to your Personal diary in which all the saved data can be seen for your future reference.
+</form>
+<p>
+  <!-- This will be the output div -->
+    <div id="output"></div>
+</p>
+</main>
+
+<div data-role="footer" data-position="fixed">
+		<h1>Trutrition</h1>
+</div>
+</body>
+</html>
