@@ -3,6 +3,7 @@ var http = require('http'); //Requires http
 var app = express();
 var bodyParser = require("body-parser");
 var mysql = require('mysql');
+var fs = require('fs');
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
@@ -62,6 +63,7 @@ app.get("/login", function(req,res){
 	});
 	
 });
+
 
 
 app.get("/foodList", function(req,res){

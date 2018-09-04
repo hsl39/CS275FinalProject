@@ -24,6 +24,7 @@ body
 </style>
 
 <script>
+
 function createUser(){
 	var uId = document.getElementById('user').value;
 	var exists = false;
@@ -57,6 +58,7 @@ function createUser(){
 							success: function(msg){
 								if(msg == 'Success'){
 									$("#output").html("User Successfully Created");
+									toLogin();
 								}
 								else
 									$("#output").html("Invalid USERNAME, Please Try Again");
