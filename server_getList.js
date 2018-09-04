@@ -25,9 +25,37 @@ con.connect(function(err){
 var getList = require("./USDAModule").USDAModule;
 var list = new getList();
 
-
+/*
 app.get("/", function(req,res){
 	res.sendfile("login.html");
+	
+});
+*/
+
+app.get("/loadPage", function(req,res){
+	/*Page Numbering
+	login - 1
+	createUser - 2
+	home - 3
+	diary - 4
+	lookup - 5
+	*/
+	var page = parseInt(req.query.page);
+	console.log(page);
+	var html;
+	switch(page){
+		case 1:
+			html = fs.readFileSync('login.html');
+			console.log('wow');
+			break;
+		case 2:
+			html = fs.readFileSync('createUser.html');
+			break;
+		case 3:
+		case 4:
+		case 5:
+	}
+	res.send(html);
 	
 });
 
@@ -63,8 +91,6 @@ app.get("/login", function(req,res){
 	});
 	
 });
-
-
 
 app.get("/foodList", function(req,res){
 	

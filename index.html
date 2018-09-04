@@ -9,17 +9,39 @@
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Permanent Marker' rel='stylesheet'>
 
-<script type="text/JavaScript" src="requestFood.js"></script>
+<script type="text/JavaScript" src="scripts/requestFood.js"></script>
+<script type="text/JavaScript" src="scripts/List.js"></script>
+<script type="text/JavaScript" src="scripts/login.js"></script>
+<script type="text/JavaScript" src="scripts/createUser.js"></script>
+
+<script>
+
+function loadPage(choice){
+	
+	//Setting up the url
+	var URL = 'http://localhost:8080/loadPage?page=' + choice;
+	$.ajax({
+		type: "GET",
+		url : URL,
+		dataType : "text",
+		success: function(msg) {
+			var json = msg;	
+			document.getElementById('content').innerHTML = msg;
+		},
+		error: function(jgXHR,textStatus,errorThrown){
+			document.getElementById('current').innerHTML = 'Error Fetching: ' + URL;
+		}
+	});
+	
+}
+</script>
 
 </head>
-
+<body onload="loadPage(1);">
 
 <div class="ui-page"></div>
 
-<div id="content" class="ui-responsive">
-	
-	
-</div>
+<div id="content" class="ui-responsive"></div>
 
 <div data-role="footer" data-position="fixed">
 		<h1>Trutrition</h1>
