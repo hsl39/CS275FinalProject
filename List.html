@@ -3,18 +3,40 @@
 <head>
 
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Permanent Marker' rel='stylesheet'>
+
+<title> Food Lookup and Nutritional Facts Page</title>
 
 
-<title> This Piece of Crap Page</title>
+
+<style type="text/css">
+
+body
+{
+    font-family: 'Permanent Marker';font-size: 22px;
+}
+
+.bg
+{
+	width: 100%
+	z-index: 0;
+}
+</style>
 
 <script>
 function requestFood(){
  
 	var URL = "http://localhost:8080/foodList?input=";
-	var input = String(document.getElementById('food').value);
 	
+	var input = String(document.getElementById('food').value);
 	URL += decodeURI(input);
 	
+	var num = document.getElementById('num').value;
+	URL +="&num=" + num;
 	
 	$.ajax({
 			type: "GET",
@@ -26,7 +48,7 @@ function requestFood(){
 			},
 			error: function(xhr, ajaxOptions, thownError){
 				//Outputs error if server doesn't respond
-				$("#output").html("ERROR");
+				$("#output").html("ERROR: ");
 			}
 		});
 }
@@ -57,7 +79,16 @@ function requestNutri(ndbno){
 
 <body>
 
+<h1 align='center'> Food Lookup and Nutritional Facts </h1>
+
+<p> On this page you are provided with a search bar and a variable number of entries you want to display. 
+<br>In order to see the results of you search simply enter your desired food and the number of entries you wish to see in the designated boxes below. 
+<br>From there simply click the button below and a selection of meals and foods will be displayed underneath. 
+<br>Double-click on any of these entries to display their nutritional facts. </p>
+
 <input type="text" id="food" placeholder="Enter the desired food here">
+
+<input type="text" id="num" placeholder="Number of results you want displayed">
 
 <button onclick="requestFood()"> Get the Food List </button>
 

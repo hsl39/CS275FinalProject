@@ -16,6 +16,8 @@ app.get("/foodList", function(req,res){
 	
 	var food =  String(req.query.input);
 	
+	var n = req.query.num;
+	
 	
 	list.once("ndbno", function(msg){
 		var flist = "<ol>";
@@ -29,7 +31,7 @@ app.get("/foodList", function(req,res){
 			var descr = msg.list.item[i].name;
 			console.log(descr);
 			var ndbno = msg.list.item[i].ndbno;
-			flist += "<li onclick=requestNutri(" + "'" + ndbno + "'" + ") >" + descr + " <br> NDBNO Code: " + ndbno + "</a> </li> <br>";
+			flist += "<li ondblclick=requestNutri(" + "'" + ndbno + "'" + ") >" + descr + " <br> NDBNO Code: " + ndbno + "</a> </li> <br>";
 		}
 		food += "</ol>";
 
@@ -37,7 +39,7 @@ app.get("/foodList", function(req,res){
 		res.send(flist);}
 		});	
 		
-	list.getNDBNO(food, 25);
+	list.getNDBNO(food, n);
 	
 });
 
@@ -50,10 +52,10 @@ app.get("/nutrients", function(req, res){
 	
 	list.once("result", function(msg){
 		var nutri = [1,3,4,5,6];
-		var html= "<p>" + msg.name; 
+		var html= "<p>" + msg.name + "<br><br> Nutritional Facts: <br>"; 
 		for( x in nutri){
 			console.log(x);
-			html += "<br>" + msg.nutrients[nutri[x]].name + "<br>" + msg.nutrients[nutri[x]].value + msg.nutrients[nutri[x]].unit + "</p>";
+			html += "<br>" + msg.nutrients[nutri[x]].name + "<br><font color=green>" + msg.nutrients[nutri[x]].value + msg.nutrients[nutri[x]].unit + "</font></p>";
 		}
 		console.log(html);
 		res.send(html);
