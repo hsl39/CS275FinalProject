@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+<title> This Piece of Crap Page</title>
+
+<script>
+function requestFood(){
+ 
+	var URL = "http://localhost:8080/foodList?input=";
+	var input = String(document.getElementById('food').value);
+	
+	URL += decodeURI(input);
+	
+	
+	$.ajax({
+			type: "GET",
+			url: URL,
+			dataType: "html",
+			success: function(msg){
+				//Outputs the answer if the server responds
+				$("#output").html(msg);
+			},
+			error: function(xhr, ajaxOptions, thownError){
+				//Outputs error if server doesn't respond
+				$("#output").html("ERROR");
+			}
+		});
+}
+		
+function requestNutri(ndbno){
+ 
+	var URL = "http://localhost:8080/nutrients?food=" + ndbno;
+	
+	
+	
+	$.ajax({
+			type: "GET",
+			url: URL,
+			dataType: "html",
+			success: function(msg){
+				//Outputs the answer if the server responds
+				$("#output").html(msg);
+			},
+			error: function(xhr, ajaxOptions, thownError){
+				//Outputs error if server doesn't respond
+				$("#output").html("ERROR");
+			}
+		});
+ }
+</script>
+
+</head>
+
+<body>
+
+<input type="text" id="food" placeholder="Enter the desired food here">
+
+<button onclick="requestFood()"> Get the Food List </button>
+
+<div id="output"></div>
+
+
+</body>
+
+</html>
