@@ -1,15 +1,52 @@
 var express = require('express'); //Requires express 
 var http = require('http'); //Requires http
 var app = express();
+var mysql = require('mysql');
+var con = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: 'drexelcs275',
+	database: 'trutrition'
+});
 
 app.use(express.static("."));
+
+con.connect(function(err){
+	if(err)
+		console.log(err+"Error Connecting");
+	else
+		console.log("Connection Successful");	
+});
 
 var getList = require("./USDAModule").USDAModule;
 var list = new getList();
 
 
+app.get("/", function(req,res){
+	res.sendfile("login.html");
+	
+});
 
 
+app.get("/login", function(req,res){
+	var user = req.query.user;
+	con.query('Select * from users', function(err,rows,fields){
+		if(err)
+			console.log(err);
+		else{
+			console.log(rows[0].username +"USER" + user);
+			for(i=0; i <rows.length; i++){
+				console.log(String(rows[i].username));
+				if(String(rows[i].username) == String(user)){
+					res.send('Success');
+					return;
+				}
+			}
+		res.send("error");
+		}	
+	});
+	
+});
 
 
 app.get("/foodList", function(req,res){
