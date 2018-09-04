@@ -12,7 +12,7 @@ function logIn(){
 				if(msg == 'Success')
 					$("#output").html("Login Success");
 				else
-					$("#output").html(msg);
+					$("#output").html("Invalid Credentials");
 			},
 			error: function(xhr, ajaxOptions, thownError){
 				//Outputs error if server doesn't respond

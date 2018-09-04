@@ -27,7 +27,7 @@ var list = new getList();
 
 
 app.get("/", function(req,res){
-	res.sendfile("createUser.html");
+	res.sendfile("login.html");
 	
 });
 
