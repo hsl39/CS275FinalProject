@@ -1,6 +1,7 @@
 var express = require('express'); //Requires express 
 var http = require('http'); //Requires http
 var app = express();
+var bodyParser = require("body-parser");
 var mysql = require('mysql');
 var con = mysql.createConnection({
 	host: 'localhost',
@@ -10,6 +11,8 @@ var con = mysql.createConnection({
 });
 
 app.use(express.static("."));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 con.connect(function(err){
 	if(err)
@@ -23,10 +26,22 @@ var list = new getList();
 
 
 app.get("/", function(req,res){
-	res.sendfile("login.html");
+	res.sendfile("createUser.html");
 	
 });
 
+app.post("/createUser", function(req,res){
+	var user = req.body.user;
+	console.log(user);
+	con.query("Insert into users (username) values ('"+user+"')", function(err,rows,fields){
+		if(err)
+			console.log(err);
+		res.send("Success");
+			
+	});
+	
+	
+});
 
 app.get("/login", function(req,res){
 	var user = req.query.user;
