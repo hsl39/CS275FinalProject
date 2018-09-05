@@ -8,7 +8,7 @@ var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1;
 var yy = today.getFullYear();
-global.date = mm+"-"+dd+"-"+yy;
+global.date = yy+"-"+mm+"-"+dd;
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
