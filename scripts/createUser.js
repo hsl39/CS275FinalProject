@@ -32,7 +32,7 @@ function createUser(){
 							success: function(msg){
 								if(msg == 'Success'){
 									$("#output").html("User Successfully Created");
-									toLogin();
+									loadPage(1);
 								}
 								else
 									$("#output").html("Invalid USERNAME, Please Try Again");

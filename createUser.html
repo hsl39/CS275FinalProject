@@ -92,9 +92,12 @@ function createUser(){
 
 <body>
 
-<p>Usernames are limited to 10 characters</p>
+<p>Usernames are limited to 10 characters</p><br>
+<p>Upon successful creation you will be redirected to the login page.</p>
 <input type="text" id="user" placeholder="UserName"><br>
 <button onclick="createUser();"> Create User </button>
+<button onclick="loadPage(1);"> Back To Login </button>
+
 
 <div id='output'></div>
 

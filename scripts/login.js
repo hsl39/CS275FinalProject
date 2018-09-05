@@ -1,7 +1,7 @@
 function logIn(){
 	var uId = document.getElementById('user').value;
 	
-	
+
 	var URL = "http://localhost:8080/login?user=" + uId;
 	
 	$.ajax({
@@ -9,8 +9,10 @@ function logIn(){
 			url: URL,
 			dataType: "html",
 			success: function(msg){
-				if(msg == 'Success')
+				if(msg == 'Success'){
 					$("#output").html("Login Success");
+					loadPage(3);
+				}
 				else
 					$("#output").html("Invalid Credentials");
 			},

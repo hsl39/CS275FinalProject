@@ -46,14 +46,19 @@ app.get("/loadPage", function(req,res){
 	switch(page){
 		case 1:
 			html = fs.readFileSync('login.html');
-			console.log('wow');
 			break;
 		case 2:
 			html = fs.readFileSync('createUser.html');
 			break;
 		case 3:
+			html = fs.readFileSync('Trutrition_Home.html');
+			break;
 		case 4:
+			html = fs.readFileSync('personaldiary.html');
+			break;
 		case 5:
+			html = fs.readFileSync('List.html');
+			break;
 	}
 	res.send(html);
 	
