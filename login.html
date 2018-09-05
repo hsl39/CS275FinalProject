@@ -123,25 +123,25 @@ span.psw {
 
 
 <body>
-  <h2>Login Form</h2>
+  <h2 align='center'>Login</h2>
 
   <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
   	<p align="center"><img class="bg" src="https://image.ibb.co/hBkFf9/Trutrition_Logo.png" height="500" width="1000"</p>
   <div id="id01" class="modal">
 
-    <form class="modal-content animate" action="/action_page.php">
+
       <!-- <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       </div> -->
 
-      <div class="container">
+      <div class="container" align='center'>
         <!-- <label for="uname"><b>Username</b></label> -->
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <input id='user' type="text" placeholder="Enter Username" required>
 
         <!-- <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required> -->
 
-        <button type="submit">Login</button>
+        <button onclick='logIn()'>Login</button>
         <label>
           <!-- <input type="checkbox" checked="checked" name="remember"> Remember me
         </label> -->
@@ -150,7 +150,7 @@ span.psw {
            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
            <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
          </div>
-    </form>
+
 
 
 <div id='output'></div>
