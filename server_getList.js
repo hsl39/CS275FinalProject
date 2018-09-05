@@ -192,7 +192,7 @@ app.get("/nutrients", function(req, res){
 
 app.get("/updateDiary", function(req,res){
 	var table = "<table border='1'><tr>";
-	con.query('SELECT distinct users.username,logId,foodName,nutrition,servings,time FROM users,logs where users.username = logs.username', function(err, rows, fields) {
+	con.query("SELECT distinct users.username,logId,foodName,nutrition,servings,time FROM users,logs where users.username = logs.username and users.username ='"+userName+"'", function(err, rows, fields) {
          if (err) {
              console.log(err);
              res.send('describeTables', 'Error while processing query...');
