@@ -11,6 +11,9 @@ var con = mysql.createConnection({
 	database: 'trutrition'
 });
 
+
+var userName;
+
 app.use(express.static("."));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -41,7 +44,6 @@ app.get("/loadPage", function(req,res){
 	lookup - 5
 	*/
 	var page = parseInt(req.query.page);
-	console.log(page);
 	var html;
 	switch(page){
 		case 1:
@@ -87,6 +89,7 @@ app.get("/login", function(req,res){
 			for(i=0; i <rows.length; i++){
 				console.log(String(rows[i].username));
 				if(String(rows[i].username) == String(user)){
+					userName = user;
 					res.send('Success');
 					return;
 				}
@@ -95,6 +98,31 @@ app.get("/login", function(req,res){
 		}	
 	});
 	
+});
+
+app.get("/validate", function(req,res){
+	var user = req.query.user;
+	con.query('Select * from users', function(err,rows,fields){
+		if(err)
+			console.log(err);
+		else{
+			console.log(rows[0].username +"USER" + user);
+			for(i=0; i <rows.length; i++){
+				console.log(String(rows[i].username));
+				if(String(rows[i].username) == String(user)){
+					res.send('Success');
+					return;
+				}
+			}
+		res.send("error");
+		}	
+	});
+	
+});
+
+app.get("/getUser", function(req,res){
+	console.log("here");
+	res.send(userName);	
 });
 
 app.get("/foodList", function(req,res){

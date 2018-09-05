@@ -18,7 +18,8 @@
 <script>
 
 function loadPage(choice){
-	
+	if(choice == 3)
+		loadMenu();
 	//Setting up the url
 	var URL = 'http://localhost:8080/loadPage?page=' + choice;
 	$.ajax({
@@ -35,10 +36,47 @@ function loadPage(choice){
 	});
 	
 }
+
+function loadMenu(choice){
+	var URL = 'http://localhost:8080/getUser';
+	$.ajax({
+		type: "GET",
+		url : URL,
+		dataType : "text",
+		success: function(msg) {
+			var json = msg;	
+			document.getElementById('menubar').innerHTML = "<div data-role='header' data-position='fixed' ><a href='#myPanel'>"+msg+"'s Dashboard</a></div>";
+		},
+		error: function(jgXHR,textStatus,errorThrown){
+			document.getElementById('current').innerHTML = 'Error Fetching: ' + URL;
+		}
+	});
+	
+}
+
+function logout(){
+	document.getElementById('menubar').innerHTML = "";
+	loadPage(1);
+
+}
 </script>
 
 </head>
-<body onload="loadPage(4);">
+<body onload="loadPage(1);">
+
+<div id='menubar'></div>
+
+	
+
+
+
+<div data-role="panel" id="myPanel">
+	<a onclick ="loadPage(3)" href="#"> Menu </a> <br>
+	<a onclick="loadPage(5)" href="#"> Food Lookup </a> <br>
+	<a onclick="loadPage(4)" href="#"> Food Diary </a> <br>
+	<a onclick="logout()" href="#" data-rel="close"> Sign Out </a> 
+</div>
+
 
 <div class="ui-page"></div>
 

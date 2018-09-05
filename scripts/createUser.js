@@ -3,7 +3,7 @@ function createUser(){
 	var uId = document.getElementById('user').value;
 	var exists = false;
 	
-	var URL = "http://localhost:8080/login?user=" + uId;
+	var URL = "http://localhost:8080/validate?user=" + uId;
 	
 	if(uId.length > 10){
 		$("#output").html("Username contains too many characters. Please try again");
