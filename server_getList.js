@@ -11,8 +11,8 @@ var con = mysql.createConnection({
 	database: 'trutrition'
 });
 
-
-var userName;
+global.currentItem = [];
+global.userName;
 
 app.use(express.static("."));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -28,12 +28,20 @@ con.connect(function(err){
 var getList = require("./USDAModule").USDAModule;
 var list = new getList();
 
-/*
-app.get("/", function(req,res){
-	res.sendfile("login.html");
+
+app.get("/addEntry", function(req,res){
+	console.log(userName);
+	con.query("Insert into logs (time,servings,username,foodName,nutrition) values ('2018-01-01',1,'"+userName+"',\""+currentItem[0]+"\",'"+currentItem[1]+"')"
+	, function(err,rows,fields){
+		if(err)
+			console.log(err);
+		else{
+		res.send("Success");
+		}	
+	});
 	
 });
-*/
+
 
 app.get("/loadPage", function(req,res){
 	/*Page Numbering
@@ -121,7 +129,6 @@ app.get("/validate", function(req,res){
 });
 
 app.get("/getUser", function(req,res){
-	console.log("here");
 	res.send(userName);	
 });
 
@@ -138,13 +145,13 @@ app.get("/foodList", function(req,res){
 			res.send("Error determining input, no results found. Please try again.")
 		}
 		else{
-		for(var i = 0; i < msg.list.item.length; i++){
-			var descr = msg.list.item[i].name;
-			console.log(descr);
-			var ndbno = msg.list.item[i].ndbno;
-			flist += "<li onclick=requestNutri(" + "'" + ndbno + "'" + ") >" + descr + " <br> NDBNO Code: " + ndbno + "</a> </li> <br>";
-		}
-		food += "</ol>";
+			for(var i = 0; i < msg.list.item.length; i++){
+				var descr = msg.list.item[i].name;
+				console.log(descr);
+				var ndbno = msg.list.item[i].ndbno;
+				flist += "<li onclick=requestNutri(" + "'" + ndbno + "'" + ") >" + descr + " <br> NDBNO Code: " + ndbno + "</a> </li> <br>";
+			}
+			food += "</ol>";
 
 		console.log(flist);
 		res.send(flist);}
@@ -162,12 +169,17 @@ app.get("/nutrients", function(req, res){
 	var html = "<p>"
 	
 	list.once("result", function(msg){
-		var nutri = [1,3,4,5,6];
-		var html= "<p>" + msg.name; 
-		for( x in nutri){
-			console.log(x);
+		currentItem.push(msg.name);
+		nutrition = "";
+		console.log(msg.nutrients);
+		var nutri = [0,1,2,3,4];
+		var html= "<p>"+"<button onclick='addEntry()'>Add to Diary</button><br>" + msg.name; 
+		for(x = 0; x < nutri.length; x++){
+			console.log(nutri[x]);
 			html += "<br>" + msg.nutrients[nutri[x]].name + "<br>" + msg.nutrients[nutri[x]].value + msg.nutrients[nutri[x]].unit + "</p>";
+			nutrition += String(msg.nutrients[nutri[x]].name)+": "+String(msg.nutrients[nutri[x]].value) + String(msg.nutrients[nutri[x]].unit) + " ";
 		}
+		currentItem.push(nutrition);
 		console.log(html);
 		res.send(html);
 	});
@@ -178,6 +190,30 @@ app.get("/nutrients", function(req, res){
 	
 });
 
+app.get("/updateDiary", function(req,res){
+	var table = "<table border='1'><tr>";
+	con.query('SELECT distinct users.username,logId,foodName,nutrition,servings,time FROM users,logs where users.username = logs.username', function(err, rows, fields) {
+         if (err) {
+             console.log(err);
+             res.send('describeTables', 'Error while processing query...');
+         } 
+		 else {
+             for(var i = 0; i < fields.length; i++){
+				table += "<th>"+fields[i].name+"</th>";
+			}
+			table += "</tr><tr>"
+			for(var j = 0; j<rows.length; j++){
+				table += "<tr>";
+				for ( x in rows[j]){
+					table += "<td>" + rows[j][x] + "</td>";
+				}
+				table += "</tr>";
+			}
+			table += "</tr></table>";
+			res.send(table);
+         }
+     });	
+});
 
 
 

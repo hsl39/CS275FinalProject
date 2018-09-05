@@ -13,7 +13,7 @@
 <script type="text/JavaScript" src="scripts/List.js"></script>
 <script type="text/JavaScript" src="scripts/login.js"></script>
 <script type="text/JavaScript" src="scripts/createUser.js"></script>
-<script type="text/JavaScript" src="scripts/personaldiary.js"></script>
+<script type="text/JavaScript" src="scripts/diary.js"></script>
 
 <script>
 
@@ -71,9 +71,9 @@ function logout(){
 
 
 <div data-role="panel" id="myPanel">
-	<a onclick ="loadPage(3)" href="#"> Menu </a> <br>
-	<a onclick="loadPage(5)" href="#"> Food Lookup </a> <br>
-	<a onclick="loadPage(4)" href="#"> Food Diary </a> <br>
+	<a onclick ="loadPage(3)" href="#" data-rel="close"> Menu </a> <br>
+	<a onclick="loadPage(5)" href="#" data-rel="close"> Food Lookup </a> <br>
+	<a onclick="loadPage(4)" href="#" data-rel="close"> Food Diary </a> <br>
 	<a onclick="logout()" href="#" data-rel="close"> Sign Out </a> 
 </div>
 
