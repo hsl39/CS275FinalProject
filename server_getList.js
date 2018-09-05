@@ -4,6 +4,11 @@ var app = express();
 var bodyParser = require("body-parser");
 var mysql = require('mysql');
 var fs = require('fs');
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1;
+var yy = today.getFullYear();
+global.date = mm+"-"+dd+"-"+yy;
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
@@ -32,7 +37,7 @@ var list = new getList();
 app.get("/addEntry", function(req,res){
 	console.log(userName);
 	currentItem[0] = currentItem[0].replace('"','');
-	con.query("Insert into logs (time,servings,username,foodName,nutrition) values ('2018-01-01',1,'"+userName+"',\""+currentItem[0]+"\",'"+currentItem[1]+"')"
+	con.query("Insert into logs (time,servings,username,foodName,nutrition) values ('"+date+"',1,'"+userName+"',\""+currentItem[0]+"\",'"+currentItem[1]+"')"
 	, function(err,rows,fields){
 		if(err)
 			console.log(err);
