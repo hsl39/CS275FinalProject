@@ -45,7 +45,7 @@ function loadMenu(choice){
 		dataType : "text",
 		success: function(msg) {
 			var json = msg;	
-			document.getElementById('menubar').innerHTML = "<div data-role='header' data-position='fixed' ><a href='#myPanel'>"+msg+"'s Dashboard</a></div>";
+			document.getElementById('menubar').innerHTML = "<a href='#myPanel'>"+msg+"'s Dashboard</a>";
 		},
 		error: function(jgXHR,textStatus,errorThrown){
 			document.getElementById('current').innerHTML = 'Error Fetching: ' + URL;
@@ -64,9 +64,9 @@ function logout(){
 </head>
 <body onload="loadPage(1);">
 
-<div id='menubar'></div>
 
-	
+
+<div data-role='header' data-position='fixed' id='menubar'></div>	
 
 
 

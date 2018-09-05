@@ -1,10 +1,12 @@
 function requestFood(){
  
 	var URL = "http://localhost:8080/foodList?input=";
-	var input = String(document.getElementById('food').value);
 	
+	var input = String(document.getElementById('food').value);
 	URL += decodeURI(input);
 	
+	var num = document.getElementById('num').value;
+	URL +="&num=" + num;
 	
 	$.ajax({
 			type: "GET",
@@ -16,7 +18,7 @@ function requestFood(){
 			},
 			error: function(xhr, ajaxOptions, thownError){
 				//Outputs error if server doesn't respond
-				$("#output").html("ERROR");
+				$("#output").html("ERROR: ");
 			}
 		});
 }

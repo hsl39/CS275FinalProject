@@ -11,8 +11,8 @@ var con = mysql.createConnection({
 	database: 'trutrition'
 });
 
-global.currentItem = [];
-global.userName;
+global.currentItem = [null,null];
+global.userName = null;
 
 app.use(express.static("."));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -31,6 +31,7 @@ var list = new getList();
 
 app.get("/addEntry", function(req,res){
 	console.log(userName);
+	currentItem[0] = currentItem[0].replace('"','');
 	con.query("Insert into logs (time,servings,username,foodName,nutrition) values ('2018-01-01',1,'"+userName+"',\""+currentItem[0]+"\",'"+currentItem[1]+"')"
 	, function(err,rows,fields){
 		if(err)
@@ -135,7 +136,7 @@ app.get("/getUser", function(req,res){
 app.get("/foodList", function(req,res){
 	
 	var food =  String(req.query.input);
-	
+	var n = String(req.query.num);
 	
 	list.once("ndbno", function(msg){
 		var flist = "<ol>";
@@ -157,7 +158,7 @@ app.get("/foodList", function(req,res){
 		res.send(flist);}
 		});	
 		
-	list.getNDBNO(food, 25);
+	list.getNDBNO(food, n);
 	
 });
 
@@ -169,7 +170,7 @@ app.get("/nutrients", function(req, res){
 	var html = "<p>"
 	
 	list.once("result", function(msg){
-		currentItem.push(msg.name);
+		currentItem[0]=msg.name;
 		nutrition = "";
 		console.log(msg.nutrients);
 		var nutri = [0,1,2,3,4];
@@ -179,7 +180,7 @@ app.get("/nutrients", function(req, res){
 			html += "<br>" + msg.nutrients[nutri[x]].name + "<br>" + msg.nutrients[nutri[x]].value + msg.nutrients[nutri[x]].unit + "</p>";
 			nutrition += String(msg.nutrients[nutri[x]].name)+": "+String(msg.nutrients[nutri[x]].value) + String(msg.nutrients[nutri[x]].unit) + " ";
 		}
-		currentItem.push(nutrition);
+		currentItem[1]=nutrition;
 		console.log(html);
 		res.send(html);
 	});
@@ -192,7 +193,7 @@ app.get("/nutrients", function(req, res){
 
 app.get("/updateDiary", function(req,res){
 	var table = "<table border='1'><tr>";
-	con.query("SELECT distinct users.username,logId,foodName,nutrition,servings,time FROM users,logs where users.username = logs.username and users.username ='"+userName+"'", function(err, rows, fields) {
+	con.query("SELECT distinct users.username,foodName,nutrition,servings,time FROM users,logs where users.username = logs.username and users.username ='"+userName+"'", function(err, rows, fields) {
          if (err) {
              console.log(err);
              res.send('describeTables', 'Error while processing query...');
